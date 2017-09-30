@@ -1,0 +1,31 @@
+{
+  "name": "onthefly",
+  "version": "1.0.0",
+  "description": "This piece of software will let you upload encrypted files on your cloud storage and decrypt them on your device on the fly. Encryption and decryption both happen on your device.",
+  "main": "index.js",
+  "dependencies": {
+    "chokidar": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roncan/onthefly.git"
+  },
+  "keywords": [
+    "cloud",
+    "gdrive",
+    "google-drive",
+    "encrypted",
+    "encryption",
+    "sync"
+  ],
+  "author": "Haroon Dilshad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roncan/onthefly/issues"
+  },
+  "homepage": "https://github.com/roncan/onthefly#readme"
+}
