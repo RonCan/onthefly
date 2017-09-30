@@ -3,8 +3,9 @@ Special thanks to https://violentatom.com/2015/07/08/node-js-chokidar-wait-for-f
 * */
 // Setup video source folder observer for notifications of new files
 var chokidar = require('chokidar');
+var logger = require('logger').createLogger(); // logs to STDOUT
 
-var watcher = chokidar.watch(config.videoRawFolder, {
+var watcher = chokidar.watch('~/Downloads', {
     persistent: true,
     followSymlinks: false,
     usePolling: true,
