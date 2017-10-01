@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "chokidar": "^1.7.0",
+    "gpg": "^0.6.0",
     "logger": "0.0.1"
   },
   "devDependencies": {},
