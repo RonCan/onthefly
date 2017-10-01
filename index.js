@@ -17,12 +17,12 @@ var watcher = chokidar.watch(['/Users/ronniekinsley/Downloads/Test'], {
 });
 
 watcher
-    .on('ready', function() { logger.info('Initial scan complete. Ready for changes.'); })
-    .on('unlink', function(path) { logger.info('File: ' + path + ', has been REMOVED'); })
-    .on('error', function(err) {
+    .on('ready', () => { logger.info('Initial scan complete. Ready for changes.'); })
+    .on('unlink', (path) => { logger.info('File: ' + path + ', has been REMOVED'); })
+    .on('error', (err) => {
         logger.error('Chokidar file watcher failed. ERR: ' + err.message);
     })
-    .on('add', function(path) {
+    .on('add', (path) => {
         logger.info('File', path, 'has been ADDED');
 
         fs.stat(path, function (err, stat) {
@@ -40,7 +40,7 @@ watcher
 // Makes sure that the file added to the directory, but may not have been completely copied yet by the
 // Operating System, finishes being copied before it attempts to do anything with the file.
 function checkFileCopyComplete(path, prev) {
-    fs.stat(path, function (err, stat) {
+    fs.stat(path, (err, stat) => {
 
         if (err) {
             throw err;
@@ -50,6 +50,10 @@ function checkFileCopyComplete(path, prev) {
             //-------------------------------------
             // CALL A FUNCTION TO PROCESS FILE HERE
             //-------------------------------------
+            fs.copyFile('source.txt', 'destination.txt', (err) => {
+                if (err) throw err;
+            console.log('source.txt was copied to destination.txt');
+        });
         }
         else {
             setTimeout(checkFileCopyComplete, WAITSECONDS*1000, path, stat);
