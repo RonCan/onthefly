@@ -1,12 +1,12 @@
 /*
 Special thanks to https://violentatom.com/2015/07/08/node-js-chokidar-wait-for-file-copy-to-complete-before-modifying/ for the code to detect end of file transfer
 * */
-// Setup video source folder observer for notifications of new files
 let chokidar = require('chokidar');
 let logger = require('logger').createLogger(); // logs to STDOUT
 const fs = require('fs');
 let WAITSECONDS = 1;
 let path = require('path');
+let gpg = require('gpg');
 let watcher = chokidar.watch(['/Users/ronniekinsley/Downloads/Test'], {
     persistent: true,
     followSymlinks: false,
@@ -54,6 +54,11 @@ function checkFileCopyComplete(pathSrc, prev) {
             let destination = '/Users/ronniekinsley/Downloads/Encrypted';
             destination = path.join(destination, path.basename(pathSrc));
             fs.createReadStream(pathSrc).pipe(fs.createWriteStream(destination));
+            gpg.encryptToStream({source: fs.createReadStream(pathSrc), dest: fs.createWriteStream(destination)}, (a,b, c) => {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            });
         }
         else {
             setTimeout(checkFileCopyComplete, WAITSECONDS*1000, pathSrc, stat);
