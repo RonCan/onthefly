@@ -4,8 +4,9 @@ Special thanks to https://violentatom.com/2015/07/08/node-js-chokidar-wait-for-f
 // Setup video source folder observer for notifications of new files
 let chokidar = require('chokidar');
 let logger = require('logger').createLogger(); // logs to STDOUT
-let fs = require('fs');
+const fs = require('fs');
 let WAITSECONDS = 1;
+let path = require('path');
 let watcher = chokidar.watch(['/Users/ronniekinsley/Downloads/Test'], {
     persistent: true,
     followSymlinks: false,
@@ -39,8 +40,8 @@ watcher
 
 // Makes sure that the file added to the directory, but may not have been completely copied yet by the
 // Operating System, finishes being copied before it attempts to do anything with the file.
-function checkFileCopyComplete(path, prev) {
-    fs.stat(path, (err, stat) => {
+function checkFileCopyComplete(pathSrc, prev) {
+    fs.stat(pathSrc, (err, stat) => {
 
         if (err) {
             throw err;
@@ -50,13 +51,12 @@ function checkFileCopyComplete(path, prev) {
             //-------------------------------------
             // CALL A FUNCTION TO PROCESS FILE HERE
             //-------------------------------------
-            fs.copyFile('source.txt', 'destination.txt', (err) => {
-                if (err) throw err;
-            console.log('source.txt was copied to destination.txt');
-        });
+            let destination = '/Users/ronniekinsley/Downloads/Encrypted';
+            destination = path.join(destination, path.basename(pathSrc));
+            fs.createReadStream(pathSrc).pipe(fs.createWriteStream(destination));
         }
         else {
-            setTimeout(checkFileCopyComplete, WAITSECONDS*1000, path, stat);
+            setTimeout(checkFileCopyComplete, WAITSECONDS*1000, pathSrc, stat);
         }
     });
 }
