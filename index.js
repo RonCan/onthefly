@@ -2,11 +2,11 @@
 Special thanks to https://violentatom.com/2015/07/08/node-js-chokidar-wait-for-file-copy-to-complete-before-modifying/ for the code to detect end of file transfer
 * */
 // Setup video source folder observer for notifications of new files
-var chokidar = require('chokidar');
-var logger = require('logger').createLogger(); // logs to STDOUT
-var fs = require('fs');
-var WAITSECONDS = 1;
-var watcher = chokidar.watch(['/Users/ronniekinsley/Downloads/Test'], {
+let chokidar = require('chokidar');
+let logger = require('logger').createLogger(); // logs to STDOUT
+let fs = require('fs');
+let WAITSECONDS = 1;
+let watcher = chokidar.watch(['/Users/ronniekinsley/Downloads/Test'], {
     persistent: true,
     followSymlinks: false,
     usePolling: true,
